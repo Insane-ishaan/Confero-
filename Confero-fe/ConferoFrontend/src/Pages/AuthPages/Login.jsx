@@ -7,10 +7,16 @@ import Button from '@mui/material/Button';
 import Typography from '@mui/material/Typography';
 import { Lock, AtSign, Eye, EyeOff } from "lucide-react";
 import InputAdornment from '@mui/material/InputAdornment';
+import { useNavigate } from "react-router-dom";
+import { Link } from "react-router-dom";
 import { useState } from 'react';
+import Toggler from './Toggler';
+
 function Login() {
     const [showPassword, setShowPassword] = useState(false);
     const [loading, setLoading] = useState(false);
+    const navigate = useNavigate();
+
     function handleClick() {
         setLoading(true);
     }
@@ -24,12 +30,13 @@ function Login() {
 
         >
             <Card
-                className="w-full max-w-md rounded-2xl"
+                className="w-full max-w-md"
                 sx={{
                     backgroundColor: 'rgba(255,255,255,0.2)',
                     backdropFilter: 'blur(16px)',
                     border: '1px solid rgba(255,255,255,0.3)',
                     boxShadow: '0 8px 32px rgba(0,0,0,0.1)',
+                    borderRadius: '5rem'
                 }}
             >
                 <CardContent>
@@ -49,64 +56,7 @@ function Login() {
                         </Typography>
                     </Box>
                     <Box className="flex flex-col gap-6 mx-4" >
-
-
-                        <TextField
-                            name="email"
-                            id="outlined-required"
-                            label="Email"
-                            type="email"
-                            size="small"
-                            placeholder='alice@gmail.com'
-                            slotProps={{
-                                input: {
-                                    startAdornment: (
-                                        <InputAdornment position="start">
-                                            <AtSign size={18} />
-                                        </InputAdornment>
-                                    ),
-                                },
-                            }}
-
-                            sx={{
-                                '& .MuiOutlinedInput-root': {
-                                    borderRadius: '9999px',
-                                },
-                            }}
-                        />
-
-                        <TextField
-                            label="Password"
-                            name="password"
-                            type={showPassword ? "text" : "password"}
-                            size="small"
-                            placeholder='************'
-                            slotProps={{
-                                input: {
-                                    startAdornment: (
-                                        <InputAdornment position="start">
-                                            <Lock size={18} />
-                                        </InputAdornment>
-                                    ),
-                                    endAdornment: (
-                                        <InputAdornment position="end">
-                                            <IconButton type="button" aria-label={showPassword ? "Hide password" : "Show password"} onClick={() => setShowPassword(prev => !prev)}>
-                                                {showPassword ?
-                                                    <Eye size={18} /> :
-                                                    <EyeOff size={18} />
-                                                }
-                                            </IconButton>
-                                        </InputAdornment>
-                                    ),
-                                },
-                            }}
-                            sx={{
-                                '& .MuiOutlinedInput-root': {
-                                    borderRadius: '9999px',
-                                },
-                            }}
-                        />
-
+                        <Toggler />
                     </Box>
                     <Box className="mt-6 flex justify-end">
                         <Button href="#text-buttons" size='small'>Forgot Password?</Button>
@@ -138,7 +88,7 @@ function Login() {
                             variant="body2"
                             color="text.disabled"
                         >
-                            Don't have an account? <Button href="#text-buttons" size='small'>register</Button>
+                            Don't have an account? <Button component={Link} to="/register" size='small'>register</Button>
                         </Typography>
                     </Box>
                 </CardContent>

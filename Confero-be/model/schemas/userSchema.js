@@ -11,19 +11,33 @@ const userSchema = new Schema(
     },
     email: {
       type: String,
-      required: true,
       trim: true,
       unique: true,
+      sparse: true,
       lowercase: true,
       match: /^[^\s@]+@[^\s@]+\.[^\s@]+$/,
     },
-    password: {
+    phone: {
       type: String,
-      required: true,
-      minlength: 8,
-      maxlength: 20,
-      match: /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&]).+$/,
+      unique: true,
+      sparse: true,
     },
+
+    passwordHash: {
+      type: String,
+    },
+
+    googleId: {
+      type: String,
+      unique: true,
+      sparse: true,
+    },
+
+    phoneVerified: {
+      type: Boolean,
+      default: false,
+    },
+
     role: {
       type: String,
       enum: ["admin", "participant"],
