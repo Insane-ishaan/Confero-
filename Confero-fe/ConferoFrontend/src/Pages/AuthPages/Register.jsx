@@ -1,21 +1,14 @@
 import Card from '@mui/material/Card';
 import Box from '@mui/material/Box';
-import TextField from '@mui/material/TextField';
-import IconButton from '@mui/material/IconButton';
 import CardContent from '@mui/material/CardContent';
 import Button from '@mui/material/Button';
 import Typography from '@mui/material/Typography';
 import { Link } from "react-router-dom";
-import InputAdornment from '@mui/material/InputAdornment';
-import PhoneInput from 'react-phone-number-input'
 import "react-phone-number-input/style.css";
 import { useState, forwardRef } from 'react';
-import Toggler from './Toggler';
+import Toggler from '../../Components/auth/Toggler';
 
 function Register() {
-    const [showPassword, setShowPassword] = useState(false);
-    const [phone, setPhone] = useState("");
-    const [method, setMethod] = useState("");
     const [loading, setLoading] = useState(false);
     function handleClick() {
         setLoading(true);
@@ -56,17 +49,6 @@ function Register() {
                         </Typography>
                     </Box>
                     <Toggler isRegister={true} />
-                    <Box className="mt-8">
-                        <Button
-                            variant="contained"
-                            className='w-full'
-                            onClick={handleClick}
-                            loading={loading}
-                            loadingIndicator="Letting you in"
-                            sx={{
-                                borderRadius: '9999px',
-                            }}>Register</Button>
-                    </Box>
                     <Box className='mt-5'>
                         <Typography
                             variant="body2"

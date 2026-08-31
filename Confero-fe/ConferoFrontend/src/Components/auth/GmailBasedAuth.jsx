@@ -1,48 +1,45 @@
 import Box from '@mui/material/Box';
 import TextField from '@mui/material/TextField';
 import IconButton from '@mui/material/IconButton';
-import { Lock, Eye, EyeOff } from "lucide-react";
+import { Lock, AtSign, Eye, EyeOff } from "lucide-react";
 import InputAdornment from '@mui/material/InputAdornment';
-import PhoneInput from 'react-phone-number-input';
 import "react-phone-number-input/style.css";
 import { useState, forwardRef } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { Link } from 'react-router-dom';
-import ConfirmPassField from '../../Components/ConfirmPassField';
+import ConfirmPassField from './ConfirmPassField';
 
-const MuiPhoneInput = forwardRef(function MuiPhoneInput(props, ref) {
-    return (
-        <TextField
-            {...props}
-            inputRef={ref}
-            label="Contact"
-            size="small"
-            fullWidth
-            sx={{
-                '& .MuiOutlinedInput-root': {
-                    borderRadius: '9999px',
-                },
-            }}
-        />
-    );
-});
-
-function PhoneBasedAuth({ mode }) {
+function GmailBasedAuth({ mode }) {
     const [showPassword, setShowPassword] = useState(false);
-    const [phoneNo, setPhoneNo] = useState("");
+    const [loading, setLoading] = useState(false);
     const navigate = useNavigate();
 
     return (
         <Box className="flex flex-col gap-6 mx-4" >
 
 
-            <PhoneInput
-                international
-                defaultCountry="IN"
-                value={phoneNo}
-                onChange={setPhoneNo}
-                placeholder="Enter phone number"
-                inputComponent={MuiPhoneInput}
+            <TextField
+                name="email"
+                id="outlined-required"
+                label="Email"
+                type="email"
+                size="small"
+                placeholder='alice@gmail.com'
+                slotProps={{
+                    input: {
+                        startAdornment: (
+                            <InputAdornment position="start">
+                                <AtSign size={18} />
+                            </InputAdornment>
+                        ),
+                    },
+                }}
+
+                sx={{
+                    '& .MuiOutlinedInput-root': {
+                        borderRadius: '9999px',
+                    },
+                }}
             />
 
             <TextField
@@ -78,8 +75,9 @@ function PhoneBasedAuth({ mode }) {
             />
 
             {mode && <ConfirmPassField />}
+
         </Box>
     );
 }
 
-export default PhoneBasedAuth;
+export default GmailBasedAuth;

@@ -1,19 +1,14 @@
 import Card from '@mui/material/Card';
 import Box from '@mui/material/Box';
-import TextField from '@mui/material/TextField';
-import IconButton from '@mui/material/IconButton';
 import CardContent from '@mui/material/CardContent';
 import Button from '@mui/material/Button';
 import Typography from '@mui/material/Typography';
-import { Lock, AtSign, Eye, EyeOff } from "lucide-react";
-import InputAdornment from '@mui/material/InputAdornment';
 import { useNavigate } from "react-router-dom";
 import { Link } from "react-router-dom";
 import { useState } from 'react';
-import Toggler from './Toggler';
+import Toggler from '../../Components/auth/Toggler';
 
 function Login() {
-    const [showPassword, setShowPassword] = useState(false);
     const [loading, setLoading] = useState(false);
     const navigate = useNavigate();
 

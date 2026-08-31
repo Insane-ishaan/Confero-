@@ -6,7 +6,7 @@ router.get("/login", (req, res) => {
   res.status(s.OK).send("user login the room");
 });
 
-router.get("/register", (req, res) => {
+router.post("/register-phone", (req, res) => {
   res.status(s.OK).send("user register the room");
 });
 

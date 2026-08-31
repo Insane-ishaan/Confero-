@@ -4,8 +4,8 @@ import Tab from '@mui/material/Tab';
 import TabContext from '@mui/lab/TabContext';
 import TabList from '@mui/lab/TabList';
 import TabPanel from '@mui/lab/TabPanel';
-import GmailBasedAuth from './GmailBasedAuth';
-import PhoneBasedAuth from "./PhoneBasedAuth";
+import GmailBasedAuth from '../../Components/auth/GmailBasedAuth';
+import PhoneBasedAuth from "../../Components/auth/PhoneBasedAuth";
 
 export default function Toggler({ isRegister }) {
   const [value, setValue] = React.useState('1');
@@ -26,10 +26,10 @@ export default function Toggler({ isRegister }) {
           <Tab label="Register with Phone" value="2" />
         </TabList>
         <TabPanel value="1" tabIndex={0}>
-          <GmailBasedAuth mode={isRegister}/>
+          <GmailBasedAuth mode={isRegister} />
         </TabPanel>
         <TabPanel value="2" tabIndex={0}>
-          <PhoneBasedAuth mode={isRegister}/>
+          <PhoneBasedAuth mode={isRegister} />
         </TabPanel>
       </TabContext>
     </Box>
