@@ -3,12 +3,20 @@ import Button from '@mui/material/Button';
 import "react-phone-number-input/style.css";
 import { useState, forwardRef } from 'react';
 
-function Btn({ onSuccess }) {
+function Btn({ onSuccess, handleClick }) {
     const [loading, setLoading] = useState(false);
-    function handleClick() {
+    async function handleBtnClick() {
         setLoading(true);
 
-        onSuccess();
+        try {
+            if (handleClick) {
+                await handleClick();
+            }
+            onSuccess();
+        } catch (e) {
+            console.log(e);
+            setLoading(false);
+        }
     }
     return (
         <Box className="mt-8">
@@ -16,7 +24,7 @@ function Btn({ onSuccess }) {
                 fullWidth
                 variant="contained"
                 className='w-full'
-                onClick={handleClick}
+                onClick={handleBtnClick}
                 loading={loading}
                 loadingIndicator="Loading"
                 sx={{

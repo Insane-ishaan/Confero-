@@ -10,4 +10,8 @@ router.post("/register-phone", (req, res) => {
   res.status(s.OK).send("user register the room");
 });
 
+router.get("/register-send-otp", (req, res) => {
+  console.log("otp route working");
+});
+
 export default router;

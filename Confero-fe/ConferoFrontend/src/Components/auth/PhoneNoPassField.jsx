@@ -3,6 +3,7 @@ import PhoneInput from 'react-phone-number-input';
 import Box from '@mui/material/Box';
 import "react-phone-number-input/style.css";
 import { useState, forwardRef } from 'react';
+import api from "../../../api/axios";
 import Btn from '../common/Button';
 
 const MuiPhoneInput = forwardRef(function MuiPhoneInput(props, ref) {
@@ -23,6 +24,10 @@ const MuiPhoneInput = forwardRef(function MuiPhoneInput(props, ref) {
 });
 
 function PhoneNoPassField({ onSuccess }) {
+    const handleClick = async () => {
+        await api.get("/confero/v1/auth/register-send-otp");
+    };
+
     const [phoneNo, setPhoneNo] = useState("");
     return (
         <Box className="flex flex-col gap-6 mx-4" >
@@ -34,7 +39,7 @@ function PhoneNoPassField({ onSuccess }) {
                 placeholder="Enter phone number"
                 inputComponent={MuiPhoneInput}
             />
-            <Btn onSuccess={onSuccess} />
+            <Btn onSuccess={onSuccess} handleClick={handleClick} />
         </Box>
     );
 }
