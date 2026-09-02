@@ -59,7 +59,7 @@ export default function OTPInput({ onSuccess }) {
                     />
                 ))}
             </Box>
-            <Btn onSuccess={onSuccess} />
+            <Btn label={"Next"} onSuccess={onSuccess} />
         </Box>
     );
 }

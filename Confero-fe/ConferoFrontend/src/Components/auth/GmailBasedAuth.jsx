@@ -1,6 +1,7 @@
 import Box from '@mui/material/Box';
 import TextField from '@mui/material/TextField';
 import IconButton from '@mui/material/IconButton';
+import Btn from "../../Components/common/Button";
 import { Lock, AtSign, Eye, EyeOff } from "lucide-react";
 import InputAdornment from '@mui/material/InputAdornment';
 import "react-phone-number-input/style.css";
@@ -11,7 +12,6 @@ import ConfirmPassField from './ConfirmPassField';
 
 function GmailBasedAuth({ mode }) {
     const [showPassword, setShowPassword] = useState(false);
-    const [loading, setLoading] = useState(false);
     const navigate = useNavigate();
 
     return (
@@ -73,9 +73,8 @@ function GmailBasedAuth({ mode }) {
                     },
                 }}
             />
-
             {mode && <ConfirmPassField />}
-
+            <Btn label={mode ? "Register" : "Login"} />
         </Box>
     );
 }

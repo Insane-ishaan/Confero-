@@ -50,13 +50,11 @@ function Login() {
                             Login to your account to continue
                         </Typography>
                     </Box>
-                    <Box className="flex flex-col gap-6 mx-4" >
-                        <Toggler />
-                    </Box>
+                    <Toggler isRegister={false} />
                     <Box className="mt-6 flex justify-end">
                         <Button href="#text-buttons" size='small'>Forgot Password?</Button>
                     </Box>
-                    <Box className="mt-8">
+                    {/*  <Box className="mt-8">
                         <Button
                             variant="contained"
                             className='w-full'
@@ -66,7 +64,7 @@ function Login() {
                             sx={{
                                 borderRadius: '9999px',
                             }}>Log in</Button>
-                    </Box>
+                    </Box> */}
 
                     <Box className='mt-5'>
                         <Typography

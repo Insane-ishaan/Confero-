@@ -5,15 +5,11 @@ import Button from '@mui/material/Button';
 import { Lock, AtSign, Eye, EyeOff } from "lucide-react";
 import InputAdornment from '@mui/material/InputAdornment';
 import "react-phone-number-input/style.css";
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 
 
 function ConfirmPassField() {
     const [showConfirmPassword, setShowConfirmPassword] = useState(false);
-    const [loading, setLoading] = useState(false);
-    function handleClick() {
-        setLoading(true);
-    }
 
     return (
         <Box className="flex flex-col gap-6 ">
@@ -59,17 +55,6 @@ function ConfirmPassField() {
                     },
                 }}
             />
-            <Box className="mt-8">
-                <Button
-                    variant="contained"
-                    className='w-full'
-                    onClick={handleClick}
-                    loading={loading}
-                    loadingIndicator="Letting you in"
-                    sx={{
-                        borderRadius: '9999px',
-                    }}>Register</Button>
-            </Box>
         </Box>
     );
 }

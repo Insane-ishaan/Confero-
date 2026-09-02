@@ -25,7 +25,11 @@ const MuiPhoneInput = forwardRef(function MuiPhoneInput(props, ref) {
 
 function PhoneNoPassField({ onSuccess }) {
     const handleClick = async () => {
-        await api.get("/confero/v1/auth/register-send-otp");
+        try {
+            await api.get("/confero/v1/auth/register-send-otp");
+        } catch (e) {
+            console.log(e.message);
+        }
     };
 
     const [phoneNo, setPhoneNo] = useState("");
@@ -39,7 +43,7 @@ function PhoneNoPassField({ onSuccess }) {
                 placeholder="Enter phone number"
                 inputComponent={MuiPhoneInput}
             />
-            <Btn onSuccess={onSuccess} handleClick={handleClick} />
+            <Btn label={"Next"} onSuccess={onSuccess} onAction={handleClick} />
         </Box>
     );
 }

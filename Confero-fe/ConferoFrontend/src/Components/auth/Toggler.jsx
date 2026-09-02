@@ -22,8 +22,8 @@ export default function Toggler({ isRegister }) {
           aria-label="lab tabs"
           sx={{ borderBottom: 1, borderColor: 'divider' }}
         >
-          <Tab label="Register with Gmail" value="1" />
-          <Tab label="Register with Phone" value="2" />
+          <Tab label={`${isRegister ? "Register" : "Login"} with Gmail`} value="1" />
+          <Tab label={`${isRegister ? "Register" : "Login"} with Phone`} value="2" />
         </TabList>
         <TabPanel value="1" tabIndex={0}>
           <GmailBasedAuth mode={isRegister} />

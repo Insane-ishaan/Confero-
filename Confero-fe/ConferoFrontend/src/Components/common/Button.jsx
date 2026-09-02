@@ -1,23 +1,31 @@
 import Box from '@mui/material/Box';
 import Button from '@mui/material/Button';
 import "react-phone-number-input/style.css";
-import { useState, forwardRef } from 'react';
+import { useState } from 'react';
 
-function Btn({ onSuccess, handleClick }) {
+function Btn({ label,
+    onSuccess, onAction }) {
     const [loading, setLoading] = useState(false);
-    async function handleBtnClick() {
-        setLoading(true);
-
+    const handleBtnClick = async () => {
+        const shouldLoad = label === "Login" || label === "Register";
+        if (shouldLoad) {
+            setLoading(true);
+        }
         try {
-            if (handleClick) {
-                await handleClick();
+            if (onAction) {
+                await onAction();
             }
-            onSuccess();
+
+            if (onSuccess) {
+                onSuccess();
+            }
+
         } catch (e) {
-            console.log(e);
+            console.log(e.message);
             setLoading(false);
         }
     }
+
     return (
         <Box className="mt-8">
             <Button
@@ -29,7 +37,7 @@ function Btn({ onSuccess, handleClick }) {
                 loadingIndicator="Loading"
                 sx={{
                     borderRadius: '9999px',
-                }}>Next</Button>
+                }}>{label}</Button>
         </Box>
     );
 }

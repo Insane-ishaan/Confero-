@@ -5,16 +5,9 @@ import Button from '@mui/material/Button';
 import Typography from '@mui/material/Typography';
 import { Link } from "react-router-dom";
 import "react-phone-number-input/style.css";
-import { useState, forwardRef } from 'react';
 import Toggler from '../../Components/auth/Toggler';
 
 function Register() {
-    const [loading, setLoading] = useState(false);
-    function handleClick() {
-        setLoading(true);
-    }
-
-
     return (
         <Box
             component="form"
@@ -40,7 +33,6 @@ function Register() {
                         >
                             Let’s Get Connected
                         </Typography>
-
                         <Typography
                             variant="body2"
                             className="text-center mt-2"
