@@ -19,6 +19,7 @@ export default function Toggler({ isRegister }) {
       <TabContext value={value}>
         <TabList
           onChange={handleChange}
+          variant="fullWidth"
           aria-label="lab tabs"
           sx={{ borderBottom: 1, borderColor: 'divider' }}
         >
