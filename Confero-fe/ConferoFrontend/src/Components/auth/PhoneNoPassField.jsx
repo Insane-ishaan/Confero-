@@ -24,15 +24,20 @@ const MuiPhoneInput = forwardRef(function MuiPhoneInput(props, ref) {
 });
 
 function PhoneNoPassField({ onSuccess }) {
+    const [phoneNo, setPhoneNo] = useState("");
+
     const handleClick = async () => {
-        try {
-            await api.get("/confero/v1/auth/register-send-otp");
+        /* try {
+            console.log(phoneNo)
+            const response = await api.post("/confero/v1/auth/register-send-otp", { phoneNo });
+            console.log(response);
         } catch (e) {
-            console.log(e.message);
-        }
+            console.log("STATUS:", e.response?.status);
+            console.log("DATA:", e.response?.data);
+        } */
     };
 
-    const [phoneNo, setPhoneNo] = useState("");
+
     return (
         <Box className="flex flex-col gap-6 mx-4" >
             <PhoneInput

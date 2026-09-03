@@ -1,5 +1,4 @@
 import express from "express";
-import { StatusCodes as s } from "http-status-codes";
 import userRoutes from "./userRoutes.js";
 import authRoutes from "./authRoutes.js";
 

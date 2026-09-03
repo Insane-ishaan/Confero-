@@ -9,10 +9,24 @@ import { useState, forwardRef } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { Link } from 'react-router-dom';
 import ConfirmPassField from './ConfirmPassField';
+import api from '../../../api/axios';
 
 function GmailBasedAuth({ mode }) {
     const [showPassword, setShowPassword] = useState(false);
+    const [mail, setMail] = useState("");
     const navigate = useNavigate();
+
+    const handleClick = async () => {
+        try {
+            console.log(mail);
+            const response = await api.post("/confero/v1/auth/register-send-otp", { mail });
+            console.log(response);
+
+        } catch (e) {
+            console.log(e.response?.status);
+            console.log(e.response?.data);
+        }
+    }
 
     return (
         <Box className="flex flex-col gap-6 mx-4" >
@@ -23,6 +37,8 @@ function GmailBasedAuth({ mode }) {
                 id="outlined-required"
                 label="Email"
                 type="email"
+                value={mail}
+                onChange={(e) => setMail(e.target.value)}
                 size="small"
                 placeholder='alice@gmail.com'
                 slotProps={{
@@ -74,7 +90,7 @@ function GmailBasedAuth({ mode }) {
                 }}
             />
             {mode && <ConfirmPassField />}
-            <Btn label={mode ? "Register" : "Login"} />
+            <Btn label={mode ? "Register" : "Login"} onSuccess={null} onAction={handleClick} />
         </Box>
     );
 }
