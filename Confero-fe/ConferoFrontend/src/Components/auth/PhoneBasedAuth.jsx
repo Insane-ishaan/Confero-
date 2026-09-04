@@ -1,7 +1,7 @@
 import Box from '@mui/material/Box';
 import { useState } from 'react';
 import ConfirmPassField from '../../Components/auth/ConfirmPassField';
-import OTPPassField from "../../Components/auth/OTPPassField"
+import OTPInput from "../../Components/auth/OTPInput"
 import PhoneNoPassField from './PhoneNoPassField';
 import PassField from './PassField';
 import Btn from '../common/Button';
@@ -15,7 +15,7 @@ function PhoneBasedAuth({ mode }) {
 
             {currmode === "phoneNo" && <PhoneNoPassField onSuccess={() => setCurrMode("otp")} />}
 
-            {currmode === "otp" && <OTPPassField onSuccess={() => setCurrMode("password")} />}
+            {currmode === "otp" && <OTPInput onSuccess={() => setCurrMode("password")} />}
 
             {currmode === "password" && <PassField />}
 

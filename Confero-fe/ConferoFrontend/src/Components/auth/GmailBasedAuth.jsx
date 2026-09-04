@@ -10,17 +10,20 @@ import { useNavigate } from 'react-router-dom';
 import { Link } from 'react-router-dom';
 import ConfirmPassField from './ConfirmPassField';
 import api from '../../../api/axios';
+import PassField from './PassField';
+import OTPInput from './OTPInput';
 
 function GmailBasedAuth({ mode }) {
-    const [showPassword, setShowPassword] = useState(false);
+    const [currMode, setCurrMode] = useState("gmail");
     const [mail, setMail] = useState("");
     const navigate = useNavigate();
 
     const handleClick = async () => {
         try {
-            console.log(mail);
             const response = await api.post("/confero/v1/auth/register-send-otp", { mail });
-            console.log(response);
+            if (response.status == 200) {
+                setCurrMode("otp");
+            }
 
         } catch (e) {
             console.log(e.response?.status);
@@ -38,7 +41,7 @@ function GmailBasedAuth({ mode }) {
                 label="Email"
                 type="email"
                 value={mail}
-                onChange={(e) => setMail(e.target.value)}
+                onChange={(e) => { setMail(e.target.value) }}
                 size="small"
                 placeholder='alice@gmail.com'
                 slotProps={{
@@ -57,39 +60,9 @@ function GmailBasedAuth({ mode }) {
                     },
                 }}
             />
-
-            <TextField
-                label="Password"
-                name="password"
-                type={showPassword ? "text" : "password"}
-                size="small"
-                placeholder='************'
-                slotProps={{
-                    input: {
-                        startAdornment: (
-                            <InputAdornment position="start">
-                                <Lock size={18} />
-                            </InputAdornment>
-                        ),
-                        endAdornment: (
-                            <InputAdornment position="end">
-                                <IconButton type="button" aria-label={showPassword ? "Hide password" : "Show password"} onClick={() => setShowPassword(prev => !prev)}>
-                                    {showPassword ?
-                                        <Eye size={18} /> :
-                                        <EyeOff size={18} />
-                                    }
-                                </IconButton>
-                            </InputAdornment>
-                        ),
-                    },
-                }}
-                sx={{
-                    '& .MuiOutlinedInput-root': {
-                        borderRadius: '9999px',
-                    },
-                }}
-            />
-            {mode && <ConfirmPassField />}
+            {currMode === "pass" && <PassField />}
+            {currMode === "otp" && <OTPInput onSuccess={() => setCurrMode("pass")} />}
+            {mode && currMode === "pass" && <ConfirmPassField  />}
             <Btn label={mode ? "Register" : "Login"} onSuccess={null} onAction={handleClick} />
         </Box>
     );
