@@ -1,11 +1,12 @@
 import * as React from 'react';
 import Box from '@mui/material/Box';
 import Tab from '@mui/material/Tab';
+import Collapse from "@mui/material/Collapse";
 import TabContext from '@mui/lab/TabContext';
 import TabList from '@mui/lab/TabList';
 import TabPanel from '@mui/lab/TabPanel';
 import GmailBasedAuth from '../../Components/auth/GmailBasedAuth';
-import PhoneBasedAuth from "../../Components/auth/PhoneBasedAuth";
+import WithGoogleBtn from './WithGoggleBtn';
 
 export default function Toggler({ isRegister }) {
   const [value, setValue] = React.useState('1');
@@ -24,14 +25,19 @@ export default function Toggler({ isRegister }) {
           sx={{ borderBottom: 1, borderColor: 'divider' }}
         >
           <Tab label={`${isRegister ? "Register" : "Login"} with Gmail`} value="1" />
-          <Tab label={`${isRegister ? "Register" : "Login"} with Phone`} value="2" />
+          <Tab label="Continue with Gmail" value="2" />
         </TabList>
-        <TabPanel value="1" tabIndex={0}>
-          <GmailBasedAuth mode={isRegister} />
-        </TabPanel>
-        <TabPanel value="2" tabIndex={0}>
-          <PhoneBasedAuth mode={isRegister} />
-        </TabPanel>
+        <Collapse in={value === "1"} timeout={300}>
+          <Box sx={{ p: 2 }}>
+            <GmailBasedAuth mode={isRegister} />
+          </Box>
+        </Collapse>
+
+        <Collapse in={value === "2"} timeout={300}>
+          <Box sx={{ p: 2 }}>
+            <WithGoogleBtn />
+          </Box>
+        </Collapse>
       </TabContext>
     </Box>
   );

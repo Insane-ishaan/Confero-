@@ -22,7 +22,9 @@ function Login() {
             component="form"
             noValidate
             className="mt-7 flex flex-col items-center justify-center"
-
+            sx={{
+                transition: "opacity 300ms ease, transform 300ms ease",
+            }}
         >
             <Card
                 className="w-full max-w-md"
@@ -51,9 +53,6 @@ function Login() {
                         </Typography>
                     </Box>
                     <Toggler isRegister={false} />
-                    <Box className="mt-6 flex justify-end">
-                        <Button href="#text-buttons" size='small'>Forgot Password?</Button>
-                    </Box>
                     {/*  <Box className="mt-8">
                         <Button
                             variant="contained"

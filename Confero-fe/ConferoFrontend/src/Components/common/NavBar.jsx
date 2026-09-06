@@ -32,7 +32,7 @@ function NavBar() {
 
     return (
         <>
-            <AppBar position="static" sx={{ marginBottom: "0.5rem" }}>
+            <AppBar position="relative" sx={{ marginBottom: "0.5rem" }}>
                 <Container maxWidth="xl">
                     <Toolbar disableGutters>
                         <AdbIcon sx={{ display: { xs: 'none', md: 'flex' }, mr: 1 }} />
@@ -121,7 +121,20 @@ function NavBar() {
                     </Toolbar>
                 </Container>
             </AppBar>
-            {isAlert && <ActionAlerts />}
+            <Box
+                sx={{
+                    position: "absolute",
+                    top: "70px",
+                    left: 0,
+                    width: "100%",
+                    zIndex: 9999,
+                    opacity: isAlert ? 1 : 0,
+                    transform: isAlert ? "translateY(0)" : "translateY(-20px)",
+                    transition: "opacity 300ms ease, transform 300ms ease",
+                }}
+            >
+                <ActionAlerts />
+            </Box>
         </>
     );
 }

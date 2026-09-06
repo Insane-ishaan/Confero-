@@ -13,7 +13,7 @@ function Register() {
             component="form"
             noValidate
             className="mt-7 flex flex-col items-center justify-center"
-
+        
         >
             <Card
                 className="w-full max-w-md"
@@ -22,7 +22,8 @@ function Register() {
                     backdropFilter: 'blur(16px)',
                     border: '1px solid rgba(255,255,255,0.3)',
                     boxShadow: '0 8px 32px rgba(0,0,0,0.1)',
-                    borderRadius: '5rem'
+                    borderRadius: '5rem',
+                    transition: "opacity 300ms ease, transform 300ms ease",
                 }}
             >
                 <CardContent>
