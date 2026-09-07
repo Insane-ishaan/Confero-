@@ -7,20 +7,25 @@ import api from "../../../api/axios";
 
 export default function OTPInput({ onSuccess }) {
     const [otp, setOtp] = useState(["", "", "", "", "", ""]);
-    const { isAlert, setIsAlert } = useContext(AlertContext);
+    const { isAlert, setIsAlert, setIsSuccess, setErrorInfoToBeAlert, setSuccessInfoToBeAlert } = useContext(AlertContext);
     const inputRefs = useRef([]);
 
     const handleVerification = async () => {
-        try {   
+        try {
             const otpStr = otp.join("");
-            const info = await api.post("/confero/v1/auth/verify-otp", { otp: otpStr });
-            if (info.status === 200) {
+            const response = await api.post("/confero/v1/auth/verify-otp", { otp: otpStr });
+            if (response.status === 200) {
                 setIsAlert(true);
                 onSuccess();
+                setIsSuccess(true);
+                setSuccessInfoToBeAlert(response?.data.msg);
             }
         } catch (e) {
             console.log(e.message);
             console.log(e.response?.data?.msg);
+            setIsAlert(true);
+            setIsSuccess(false);
+            setErrorInfoToBeAlert(e.response?.data.msg);
         }
     }
 
@@ -53,7 +58,7 @@ export default function OTPInput({ onSuccess }) {
                     <OutlinedInput
                         key={index}
                         value={digit}
-                        onChange={(e) => { handleChange(e, index); handleVerification() }}
+                        onChange={(e) => handleChange(e, index)}
                         onKeyDown={(e) => handleKeyDown(e, index)}
                         inputRef={(el) => {
                             inputRefs.current[index] = el;
@@ -76,7 +81,7 @@ export default function OTPInput({ onSuccess }) {
                     />
                 ))}
             </Box>
-            <Btn label={"Next"} onSuccess={handleVerification} />
+            <Btn label={"Next"} onSuccess={null} onAction={handleVerification} />
         </Box>
     );
 }

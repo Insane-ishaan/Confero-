@@ -15,10 +15,11 @@ function GmailBasedAuth({ mode }) {
 
     return (
         <Box className="flex flex-col gap-6 mx-4" >
-            <GmailField mail={mail} setMail={setMail} setCurrMode={setCurrMode} mode={mode} />
+            <GmailField mail={mail} setMail={setMail}  currMode={currMode} setCurrMode={setCurrMode} mode={mode} />
             {currMode === "otp" && <OTPInput onSuccess={() => setCurrMode("pass")} />}
             {currMode === "pass" && <PassField />}
             {mode && currMode === "pass" && <ConfirmPassField />}
+            
             {!mode && <Box className="mt-1 flex justify-end">
                 <Button href="#text-buttons" size='small'>Forgot Password?</Button>
             </Box>}

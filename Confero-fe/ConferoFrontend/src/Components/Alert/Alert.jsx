@@ -4,12 +4,12 @@ import Stack from '@mui/material/Stack';
 import { useContext } from 'react';
 import { AlertContext } from '../../context/AlertContext';
 
-export default function ActionAlerts() {
-    const { setIsAlert } = useContext(AlertContext)
+export default function () {
+    const { setIsAlert, successInfoToBeAlert, errorInfoToBeAlert, isSuccess } = useContext(AlertContext)
     return (
         <Stack sx={{ mx: "auto", width: '50%', marginTop: "0px" }} >
             <Alert
-                severity="success"
+                severity={isSuccess ? "success" : "error"}
                 sx={{
                     borderRadius: "12px",
                 }}
@@ -19,7 +19,7 @@ export default function ActionAlerts() {
                     </Button>
                 }
             >
-                This Alert uses a Button component for its action.
+                {isSuccess ? successInfoToBeAlert : errorInfoToBeAlert}
             </Alert>
         </Stack>
     );
