@@ -5,7 +5,7 @@ import Box from "@mui/material/Box";
 import Btn from "../common/Button";
 import api from "../../../api/axios";
 
-export default function OTPInput({ onSuccess }) {
+export default function OTPInput({ value, onChange, onSuccess }) {
     const [otp, setOtp] = useState(["", "", "", "", "", ""]);
     const { isAlert, setIsAlert, setIsSuccess, setErrorInfoToBeAlert, setSuccessInfoToBeAlert } = useContext(AlertContext);
     const inputRefs = useRef([]);
@@ -38,7 +38,7 @@ export default function OTPInput({ onSuccess }) {
         const newOtp = [...otp];
         newOtp[index] = value;
         setOtp(newOtp);
-
+        onChange(newOtp.join(""));
         // Move to next box
         if (value && index < otp.length - 1) {
             inputRefs.current[index + 1]?.focus();

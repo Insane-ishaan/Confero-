@@ -7,16 +7,20 @@ import { useState, useContext } from 'react';
 import { AlertContext } from '../../context/AlertContext';
 
 
-function GmailField({ mail, setMail, currMode, setCurrMode, mode }) {
+function GmailField({ value, onChange, onSuccess, currMode,mode }) {
     const { setIsAlert, setSuccessInfoToBeAlert, setErrorInfoToBeAlert, setIsSuccess } = useContext(AlertContext);
     const handleClick = async () => {
         try {
-            const response = await api.post("/confero/v1/auth/register-send-otp", { mail });
-            if (response.status === 200) {
-                setCurrMode("otp");
-                setIsSuccess(true);
-                setIsAlert(true);
-                setSuccessInfoToBeAlert(response?.data.msg);
+            if (mode) {
+                const response = await api.post("/confero/v1/auth/register-send-otp", { mail:value });
+                if (response.status === 200) {
+                    onSuccess();
+                    setIsSuccess(true);
+                    setIsAlert(true);
+                    setSuccessInfoToBeAlert(response?.data.msg);
+                }
+            } else {
+                onSuccess();
             }
         } catch (e) {
             console.log(e.response?.status);
@@ -34,8 +38,8 @@ function GmailField({ mail, setMail, currMode, setCurrMode, mode }) {
                 id="outlined-required"
                 label="Email"
                 type="email"
-                value={mail}
-                onChange={(e) => { setMail(e.target.value) }}
+                value={value}
+                onChange={(e) => onChange(e.target.value)}
                 size="small"
                 placeholder='alice@gmail.com'
                 slotProps={{

@@ -4,13 +4,15 @@ import { Lock, Eye, EyeOff } from "lucide-react";
 import InputAdornment from '@mui/material/InputAdornment';
 import { useState, forwardRef } from 'react';
 
-function PassField() {
+function PassField({ value, onChange }) {
     const [showPassword, setShowPassword] = useState(false);
 
     return (
         <TextField
             label="Password"
             name="password"
+            value={value}
+            onChange={(e) => onChange(e.target.value)}
             type={showPassword ? "text" : "password"}
             size="small"
             placeholder='************'

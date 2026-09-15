@@ -17,11 +17,6 @@ const userSchema = new Schema(
       lowercase: true,
       match: /^[^\s@]+@[^\s@]+\.[^\s@]+$/,
     },
-    phone: {
-      type: String,
-      unique: true,
-      sparse: true,
-    },
 
     passwordHash: {
       type: String,
@@ -31,11 +26,6 @@ const userSchema = new Schema(
       type: String,
       unique: true,
       sparse: true,
-    },
-
-    phoneVerified: {
-      type: Boolean,
-      default: false,
     },
 
     role: {

@@ -8,7 +8,7 @@ import "react-phone-number-input/style.css";
 import { useState, useEffect } from 'react';
 
 
-function ConfirmPassField() {
+function ConfirmPassField({ value, onChange }) {
     const [showConfirmPassword, setShowConfirmPassword] = useState(false);
 
     return (
@@ -16,6 +16,8 @@ function ConfirmPassField() {
             <TextField
                 label="Confirm Password"
                 name="confirmPassword"
+                value={value}
+                onChange={(e) => onChange(e.target.value)}
                 type={showConfirmPassword ? "text" : "password"}
                 size="small"
                 placeholder="************"

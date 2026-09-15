@@ -7,19 +7,49 @@ import GmailField from "./GmailField";
 import PassField from './PassField';
 import OTPInput from './OTPInput';
 import Button from '@mui/material/Button';
+import Btn from '../common/Button';
 
 function GmailBasedAuth({ mode }) {
     const [currMode, setCurrMode] = useState("gmail");
-    const [mail, setMail] = useState("");
+    const [formData, setFormData] = useState({
+        email: "",
+        otp: "",
+        password: "",
+        confirmPassword: ""
+    });
+
+    const [error, setError] = useState({});
+
+
+    const handleChange = (field, value) => {
+        setFormData(prev => ({
+            ...prev,
+            [field]: value
+        }))
+    };
+
     const navigate = useNavigate();
 
+    const handleRegister = () => {
+        console.log("register working");
+    }
+
+    const handleLogin = () => {
+        console.log("login working");
+    }
     return (
         <Box className="flex flex-col gap-6 mx-4" >
-            <GmailField mail={mail} setMail={setMail}  currMode={currMode} setCurrMode={setCurrMode} mode={mode} />
-            {currMode === "otp" && <OTPInput onSuccess={() => setCurrMode("pass")} />}
-            {currMode === "pass" && <PassField />}
-            {mode && currMode === "pass" && <ConfirmPassField />}
-            
+            <GmailField value={formData.email} onChange={(value) => handleChange("email", value)} onSuccess={() => {
+                setCurrMode(mode ? "otp" : "pass");
+            }} currMode={currMode} mode={mode} />
+
+            {mode && currMode === "otp" && <OTPInput onChange={(value) => handleChange("otp", value)} onSuccess={() => setCurrMode("pass")} />}
+
+            {currMode === "pass" && <PassField value={formData.password} onChange={(value) => handleChange("password", value)} />}
+            {mode && currMode === "pass" && <ConfirmPassField value={formData.confirmPassword} onChange={(value) => handleChange("confirmPassword", value)} />}
+
+            {currMode === "pass" && <Btn label={mode ? "Register" : "Login"} onAction={mode ? handleRegister : handleLogin} />}
+
             {!mode && <Box className="mt-1 flex justify-end">
                 <Button href="#text-buttons" size='small'>Forgot Password?</Button>
             </Box>}

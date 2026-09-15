@@ -3,16 +3,11 @@ import dotenv from "dotenv";
 dotenv.config();
 import { StatusCodes as s } from "http-status-codes";
 import transporter from "../../config/mail.js";
+import { RegisterLogic, LoginLogic } from "../../controller/authLogic.js";
 const router = express.Router();
 let genRatedOTP = 0;
 
-router.get("/login", (req, res) => {
-  res.status(s.OK).send("user login the room");
-});
-
-router.post("/register-phone", (req, res) => {
-  res.status(s.OK).send("user register the room");
-});
+router.post("/login", LoginLogic);
 
 router.post("/register-send-otp", async (req, res) => {
   try {
@@ -44,7 +39,9 @@ router.post("/verify-otp", async (req, res) => {
         .json({ status: false, msg: "OTP Not Found" });
     }
     if (genRatedOTP !== otp) {
-      return res.status(s.NOT_FOUND).json({ status: false, msg: "Invalid OTP" });
+      return res
+        .status(s.NOT_FOUND)
+        .json({ status: false, msg: "Invalid OTP" });
     }
 
     res.status(s.OK).json({ status: true, msg: "Email Verified Successfully" });
