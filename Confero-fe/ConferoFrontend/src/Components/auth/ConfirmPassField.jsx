@@ -8,7 +8,7 @@ import "react-phone-number-input/style.css";
 import { useState, useEffect } from 'react';
 
 
-function ConfirmPassField({ value, onChange }) {
+function ConfirmPassField({ value, onChange, error }) {
     const [showConfirmPassword, setShowConfirmPassword] = useState(false);
 
     return (
@@ -17,6 +17,8 @@ function ConfirmPassField({ value, onChange }) {
                 label="Confirm Password"
                 name="confirmPassword"
                 value={value}
+                error={Boolean(error)}
+                helperText={error}
                 onChange={(e) => onChange(e.target.value)}
                 type={showConfirmPassword ? "text" : "password"}
                 size="small"

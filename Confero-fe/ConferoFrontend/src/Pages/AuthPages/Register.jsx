@@ -10,10 +10,8 @@ import Toggler from '../../Components/auth/Toggler';
 function Register() {
     return (
         <Box
-            component="form"
-            noValidate
             className="mt-7 flex flex-col items-center justify-center"
-        
+
         >
             <Card
                 className="w-full max-w-md"

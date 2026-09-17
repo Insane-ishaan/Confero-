@@ -1,33 +1,10 @@
-import { useRef, useState, useContext } from "react";
-import { AlertContext } from "../../context/AlertContext";
+import { useRef, useState    } from "react";
 import OutlinedInput from "@mui/material/OutlinedInput";
 import Box from "@mui/material/Box";
-import Btn from "../common/Button";
-import api from "../../../api/axios";
 
-export default function OTPInput({ value, onChange, onSuccess }) {
+export default function OTPInput({ onChange, error }) {
     const [otp, setOtp] = useState(["", "", "", "", "", ""]);
-    const { isAlert, setIsAlert, setIsSuccess, setErrorInfoToBeAlert, setSuccessInfoToBeAlert } = useContext(AlertContext);
     const inputRefs = useRef([]);
-
-    const handleVerification = async () => {
-        try {
-            const otpStr = otp.join("");
-            const response = await api.post("/confero/v1/auth/verify-otp", { otp: otpStr });
-            if (response.status === 200) {
-                setIsAlert(true);
-                onSuccess();
-                setIsSuccess(true);
-                setSuccessInfoToBeAlert(response?.data.msg);
-            }
-        } catch (e) {
-            console.log(e.message);
-            console.log(e.response?.data?.msg);
-            setIsAlert(true);
-            setIsSuccess(false);
-            setErrorInfoToBeAlert(e.response?.data.msg);
-        }
-    }
 
     const handleChange = (e, index) => {
         const value = e.target.value;
@@ -58,6 +35,7 @@ export default function OTPInput({ value, onChange, onSuccess }) {
                     <OutlinedInput
                         key={index}
                         value={digit}
+                        error={Boolean(error)}
                         onChange={(e) => handleChange(e, index)}
                         onKeyDown={(e) => handleKeyDown(e, index)}
                         inputRef={(el) => {
@@ -81,7 +59,11 @@ export default function OTPInput({ value, onChange, onSuccess }) {
                     />
                 ))}
             </Box>
-            <Btn label={"Next"} onSuccess={null} onAction={handleVerification} />
+            {error && (
+                <Box sx={{ color: "error.main", fontSize: "0.75rem", ml: 1 }}>
+                    {error}
+                </Box>
+            )}
         </Box>
     );
 }

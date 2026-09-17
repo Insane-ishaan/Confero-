@@ -19,8 +19,6 @@ function Login() {
 
     return (
         <Box
-            component="form"
-            noValidate
             className="mt-7 flex flex-col items-center justify-center"
             sx={{
                 transition: "opacity 300ms ease, transform 300ms ease",
